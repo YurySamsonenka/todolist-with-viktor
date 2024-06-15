@@ -6,3 +6,31 @@
 .App > div {
   margin-right: 50px;
 }
+
+.todolist {
+  background-color: cadetblue;
+  border: 2px solid gray;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.task-done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.task {
+  font-weight: bold;
+}
+
+.active {
+  background-color: chocolate;
+  color: white;
+  border-radius: 3px;
+  border: 3px solid chocolate;
+}
+
+.taskInputError {
+border: 2px solid red;
+  outline: none;
+}
