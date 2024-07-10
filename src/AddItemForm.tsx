@@ -1,50 +1,53 @@
-import Button from '@mui/material/Button';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 import TextField from '@mui/material/TextField';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import IconButton from "@mui/material/IconButton";
 
-type Props = {
-  addItem: (title: string) => void
-};
-export const AddItemForm = ({ addItem }: Props) => {
-  const [taskTitle, setTaskTitle] = useState('');
-  const [error, setError] = useState<string | null>(null);
+type PropsType = {
+	addItem: (title: string) => void
+}
 
-  const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setTaskTitle(event.currentTarget.value);
-  };
+export const AddItemForm = ({addItem}: PropsType) => {
 
-  const addItemHandler = () => {
-    if (taskTitle.trim() !== '') {
-      addItem(taskTitle.trim());
-      setTaskTitle('');
-    } else {
-      setError('Title is required');
-    }
-  };
+	const [title, setTitle] = useState('')
+	const [error, setError] = useState<string | null>(null)
 
-  const addItemOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
-    if (event.key === 'Enter') {
-      addItemHandler();
-    }
-  };
+	const addItemHandler = () => {
+		if (title.trim() !== '') {
+			addItem(title.trim())
+			setTitle('')
+		} else {
+			setError('Title is required')
+		}
+	}
 
-  const buttonStyles = { maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' };
+	const changeItemHandler = (event: ChangeEvent<HTMLInputElement>) => {
+		setTitle(event.currentTarget.value)
+	}
 
-  return (
-    <div>
-      <TextField
-        size={'small'}
-        value={taskTitle}
-        id="outlined-basic"
-        label={error? error :'Enter a title'}
-        variant="outlined"
-        onChange={changeTaskTitleHandler}
-        onKeyUp={addItemOnKeyUpHandler}
-        error={!!error}
-      />
-      <Button variant="contained" onClick={addItemHandler}
-        style={buttonStyles}>+</Button>
-    </div>
-  );
-};
+	const addItemOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+		setError(null)
+		if (event.key === 'Enter') {
+			addItemHandler()
+		}
+	}
+	return (
+		<div>
+			<TextField
+				label="Enter a title"
+				variant={'outlined'}
+				value={title}
+				size={'small'}
+				error={!!error}
+				helperText={error}
+				onChange={changeItemHandler}
+				onKeyUp={addItemOnKeyUpHandler}
+			/>
+			<IconButton onClick={addItemHandler} color={'primary'}>
+				<AddBoxIcon/>
+			</IconButton>
+		</div>
+	)
+}
+
+
